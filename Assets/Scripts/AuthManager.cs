@@ -24,19 +24,17 @@ public class AuthManager : MonoBehaviour
 
     async void Start()
     {
-
         Debug.Log("Checando dependencias");
         await FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
             dependencyStatus = task.Result;
             statusLoginText.text = dependencyStatus.ToString();
+           
         });
-
         Debug.Log("Logando anônimo");
         confirm1LoginText.text = "Logando anônimo!";
         var auth = FirebaseAuth.DefaultInstance;
         await auth.SignInAnonymouslyAsync();
-
         Debug.Log("Logado!");
         confirm2LoginText.text = "Logado!";
         auth.SignOut();
